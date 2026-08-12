@@ -1,0 +1,1042 @@
+:root {
+  --bp-bg: #0a2a43;
+  --bp-bg-deep: #071d30;
+  --bp-grid: rgba(191, 225, 240, 0.07);
+
+  --bp-line: #bfe1f0;
+  --bp-line-dim: rgba(191, 225, 240, 0.4);
+  --bp-line-soft: #8fc7de;
+
+  --bp-paper: #0e3350;
+
+  --bp-accent: #ff9f4a;
+  --bp-accent-dark: #d9792d;
+
+  --bp-error: #ff6b5e;
+  --bp-success: #6ee7b7;
+
+  --font-mono: var(--font-plex-mono), "IBM Plex Mono",
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --font-sans: var(--font-plex-sans), "IBM Plex Sans",
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+
+/* =========================================
+   GLOBAL RESET
+========================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+
+  min-height: 100%;
+
+  background:
+    radial-gradient(
+      circle at 50% 10%,
+      rgba(255, 159, 74, 0.08),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 10% 90%,
+      rgba(143, 199, 222, 0.06),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #061827 0%,
+      #071d30 35%,
+      #0a2a43 70%,
+      #061827 100%
+    );
+
+  color: var(--bp-line);
+
+  font-family: var(--font-sans);
+
+  min-height: 100vh;
+}
+
+
+/* =========================================
+   BLUEPRINT GRID BACKGROUND
+========================================= */
+
+body {
+  background-image:
+    linear-gradient(
+      var(--bp-grid) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      var(--bp-grid) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 50% 10%,
+      rgba(255, 159, 74, 0.08),
+      transparent 32%
+    ),
+    linear-gradient(
+      135deg,
+      #061827 0%,
+      #071d30 45%,
+      #0a2a43 100%
+    );
+
+  background-size:
+    40px 40px,
+    40px 40px,
+    auto,
+    auto;
+
+  background-position:
+    -1px -1px,
+    -1px -1px,
+    center,
+    center;
+
+  background-attachment: fixed;
+}
+
+
+/* =========================================
+   MAIN CANVAS
+========================================= */
+
+.bp-canvas {
+  position: relative;
+
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 2.5rem 1.5rem;
+
+  overflow: hidden;
+}
+
+
+/* =========================================
+   BACKGROUND GLOW
+========================================= */
+
+.bp-canvas::before {
+  content: "";
+
+  position: absolute;
+
+  width: 500px;
+  height: 500px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 159, 74, 0.035);
+
+  filter: blur(100px);
+
+  pointer-events: none;
+}
+
+.bp-canvas::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent 49.9%,
+      rgba(191, 225, 240, 0.035) 50%,
+      transparent 50.1%
+    );
+
+  pointer-events: none;
+}
+
+
+/* =========================================
+   CORNER CROSSHAIRS
+========================================= */
+
+.bp-corner {
+  position: fixed;
+
+  width: 22px;
+  height: 22px;
+
+  pointer-events: none;
+
+  opacity: 0.55;
+
+  z-index: 2;
+}
+
+.bp-corner::before,
+.bp-corner::after {
+  content: "";
+
+  position: absolute;
+
+  background: var(--bp-line-dim);
+}
+
+.bp-corner::before {
+  width: 100%;
+  height: 1px;
+
+  top: 50%;
+  left: 0;
+}
+
+.bp-corner::after {
+  height: 100%;
+  width: 1px;
+
+  left: 50%;
+  top: 0;
+}
+
+.bp-corner--tl {
+  top: 18px;
+  left: 18px;
+}
+
+.bp-corner--tr {
+  top: 18px;
+  right: 18px;
+}
+
+.bp-corner--bl {
+  bottom: 18px;
+  left: 18px;
+}
+
+.bp-corner--br {
+  bottom: 18px;
+  right: 18px;
+}
+
+
+/* =========================================
+   AUTHENTICATION SHEET / CARD
+========================================= */
+
+.bp-sheet {
+  width: 100%;
+  max-width: 420px;
+
+  position: relative;
+
+  border: 1px solid var(--bp-line-dim);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(14, 51, 80, 0.96),
+      rgba(7, 29, 48, 0.98)
+    );
+
+  backdrop-filter: blur(10px);
+
+  border-radius: 8px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.45),
+    0 0 35px rgba(143, 199, 222, 0.05);
+
+  z-index: 5;
+}
+
+
+/* Inner blueprint border */
+
+.bp-sheet::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 6px;
+
+  border: 1px solid rgba(191, 225, 240, 0.14);
+
+  pointer-events: none;
+
+  border-radius: 4px;
+
+  z-index: 0;
+}
+
+
+/* Orange top line */
+
+.bp-sheet::after {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--bp-accent),
+    transparent
+  );
+
+  opacity: 0.8;
+}
+
+
+/* =========================================
+   SHEET HEADER
+========================================= */
+
+.bp-sheet-header {
+  position: relative;
+
+  display: flex;
+
+  align-items: baseline;
+  justify-content: space-between;
+
+  padding: 1.1rem 1.4rem 0.9rem;
+
+  border-bottom: 1px solid var(--bp-line-dim);
+
+  z-index: 1;
+}
+
+
+/* =========================================
+   SHEET ID
+========================================= */
+
+.bp-sheet-id {
+  font-family: var(--font-mono);
+
+  font-size: 0.72rem;
+
+  letter-spacing: 0.14em;
+
+  color: var(--bp-accent);
+
+  font-weight: 600;
+}
+
+
+/* =========================================
+   REVISION
+========================================= */
+
+.bp-sheet-rev {
+  font-family: var(--font-mono);
+
+  font-size: 0.65rem;
+
+  letter-spacing: 0.1em;
+
+  color: var(--bp-line-dim);
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+.bp-sheet-title {
+  position: relative;
+
+  font-family: var(--font-mono);
+
+  font-size: 1.35rem;
+
+  font-weight: 600;
+
+  letter-spacing: 0.03em;
+
+  margin: 1.4rem 1.4rem 0.3rem;
+
+  text-transform: uppercase;
+
+  color: var(--bp-line);
+
+  z-index: 1;
+}
+
+
+/* =========================================
+   SUBTITLE
+========================================= */
+
+.bp-sheet-sub {
+  position: relative;
+
+  font-family: var(--font-sans);
+
+  font-size: 0.82rem;
+
+  color: var(--bp-line-dim);
+
+  margin: 0 1.4rem 1.4rem;
+
+  line-height: 1.5;
+
+  z-index: 1;
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.bp-form {
+  position: relative;
+
+  padding: 0 1.4rem 1.4rem;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 1.1rem;
+
+  z-index: 1;
+}
+
+
+/* =========================================
+   FORM FIELD
+========================================= */
+
+.bp-field {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 0.4rem;
+}
+
+
+/* =========================================
+   LABEL
+========================================= */
+
+.bp-label {
+  font-family: var(--font-mono);
+
+  font-size: 0.68rem;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+  color: var(--bp-line-dim);
+
+  transition: color 0.2s ease;
+}
+
+.bp-field:focus-within .bp-label {
+  color: var(--bp-accent);
+}
+
+
+/* =========================================
+   INPUT
+========================================= */
+
+.bp-input {
+  width: 100%;
+
+  background: rgba(7, 29, 48, 0.35);
+
+  border: 1px solid transparent;
+
+  border-bottom: 1px solid var(--bp-line-dim);
+
+  border-radius: 4px 4px 0 0;
+
+  color: var(--bp-line);
+
+  font-family: var(--font-sans);
+
+  font-size: 0.95rem;
+
+  padding: 0.65rem 0.55rem;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+/* Input focus */
+
+.bp-input:focus {
+  border-color: var(--bp-accent);
+
+  background: rgba(255, 159, 74, 0.035);
+
+  box-shadow:
+    0 0 14px rgba(255, 159, 74, 0.08);
+}
+
+
+/* Placeholder */
+
+.bp-input::placeholder {
+  color: rgba(191, 225, 240, 0.28);
+}
+
+
+/* Autofill */
+
+.bp-input:-webkit-autofill,
+.bp-input:-webkit-autofill:hover,
+.bp-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--bp-line);
+
+  box-shadow:
+    0 0 0px 1000px #0b2942 inset;
+
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+
+/* =========================================
+   ERROR MESSAGE
+========================================= */
+
+.bp-error {
+  font-family: var(--font-mono);
+
+  font-size: 0.75rem;
+
+  color: var(--bp-error);
+
+  border-left: 2px solid var(--bp-error);
+
+  padding-left: 0.6rem;
+
+  line-height: 1.4;
+
+  background: rgba(255, 107, 94, 0.04);
+
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+}
+
+
+/* =========================================
+   SUCCESS MESSAGE
+========================================= */
+
+.bp-success {
+  font-family: var(--font-mono);
+
+  font-size: 0.75rem;
+
+  color: var(--bp-success);
+
+  border-left: 2px solid var(--bp-success);
+
+  padding-left: 0.6rem;
+
+  line-height: 1.4;
+
+  background: rgba(110, 231, 183, 0.04);
+
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+}
+
+
+/* =========================================
+   PRIMARY BUTTON
+========================================= */
+
+.bp-button {
+  width: 100%;
+
+  margin-top: 0.3rem;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 159, 74, 0.1),
+      rgba(255, 159, 74, 0.02)
+    );
+
+  border: 1px solid var(--bp-accent);
+
+  color: var(--bp-accent);
+
+  border-radius: 6px;
+
+  font-family: var(--font-mono);
+
+  font-size: 0.78rem;
+
+  font-weight: 600;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+  padding: 0.8rem 1rem;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+/* Primary hover */
+
+.bp-button:hover:not(:disabled) {
+  background: var(--bp-accent);
+
+  color: var(--bp-bg-deep);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 7px 22px rgba(255, 159, 74, 0.28),
+    0 0 16px rgba(255, 159, 74, 0.12);
+}
+
+
+/* Primary active */
+
+.bp-button:active:not(:disabled) {
+  transform: translateY(0);
+
+  box-shadow:
+    0 2px 8px rgba(255, 159, 74, 0.15);
+}
+
+
+/* Disabled */
+
+.bp-button:disabled {
+  opacity: 0.45;
+
+  cursor: default;
+
+  transform: none;
+
+  box-shadow: none;
+}
+
+
+/* =========================================
+   GHOST BUTTON
+========================================= */
+
+.bp-button--ghost {
+  border-color: var(--bp-line-soft);
+
+  color: var(--bp-line-soft);
+
+  background: rgba(143, 199, 222, 0.035);
+}
+
+
+/* Ghost hover */
+
+.bp-button--ghost:hover:not(:disabled) {
+  background: var(--bp-line-soft);
+
+  color: var(--bp-bg-deep);
+
+  border-color: var(--bp-line-soft);
+
+  box-shadow:
+    0 6px 18px rgba(143, 199, 222, 0.18);
+}
+
+
+/* =========================================
+   ACTION CONTAINER
+========================================= */
+
+.bp-actions {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 0.8rem;
+
+  margin-top: 0.3rem;
+}
+
+
+/* =========================================
+   GO TO LOGIN / REGISTER BUTTON
+========================================= */
+
+.bp-link {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-width: 160px;
+
+  padding: 0.72rem 1.3rem;
+
+  margin-top: 0.2rem;
+
+  font-family: var(--font-mono);
+
+  font-size: 0.72rem;
+
+  font-weight: 600;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+
+  color: var(--bp-line-soft);
+
+  text-decoration: none;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(143, 199, 222, 0.05),
+      rgba(7, 29, 48, 0.25)
+    );
+
+  border: 1px solid var(--bp-line-soft);
+
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+/* Link hover */
+
+.bp-link:hover {
+  background: var(--bp-accent);
+
+  color: var(--bp-bg-deep);
+
+  border-color: var(--bp-accent);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 6px 20px rgba(255, 159, 74, 0.25),
+    0 0 14px rgba(255, 159, 74, 0.12);
+}
+
+
+/* Link active */
+
+.bp-link:active {
+  transform: translateY(0);
+
+  box-shadow: none;
+}
+
+
+/* =========================================
+   SMALL TEXT LINKS
+========================================= */
+
+.bp-text-link {
+  font-family: var(--font-mono);
+
+  font-size: 0.72rem;
+
+  color: var(--bp-line-soft);
+
+  text-decoration: none;
+
+  letter-spacing: 0.04em;
+
+  transition:
+    color 0.2s ease,
+    text-shadow 0.2s ease;
+}
+
+.bp-text-link:hover {
+  color: var(--bp-accent);
+
+  text-shadow:
+    0 0 10px rgba(255, 159, 74, 0.25);
+}
+
+
+/* =========================================
+   TITLE BLOCK
+========================================= */
+
+.bp-titleblock {
+  position: relative;
+
+  border-top: 1px solid var(--bp-line-dim);
+
+  padding: 0.85rem 1.4rem;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 0.35rem 1rem;
+
+  font-family: var(--font-mono);
+
+  font-size: 0.62rem;
+
+  letter-spacing: 0.06em;
+
+  color: var(--bp-line-dim);
+
+  z-index: 1;
+}
+
+
+/* =========================================
+   TITLE BLOCK DT
+========================================= */
+
+.bp-titleblock dt {
+  text-transform: uppercase;
+
+  opacity: 0.7;
+}
+
+
+/* =========================================
+   TITLE BLOCK DD
+========================================= */
+
+.bp-titleblock dd {
+  margin: 0;
+
+  color: var(--bp-line);
+}
+
+
+/* =========================================
+   KEY VALUE
+========================================= */
+
+.bp-kv {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 1px;
+}
+
+
+/* =========================================
+   CHECK TEXT
+========================================= */
+
+.bp-check {
+  font-family: var(--font-mono);
+
+  font-size: 0.85rem;
+
+  letter-spacing: 0.08em;
+
+  color: var(--bp-line-dim);
+}
+
+
+/* =========================================
+   DIVIDER
+========================================= */
+
+.bp-divider {
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.7rem;
+
+  margin: 0.2rem 0;
+}
+
+.bp-divider::before,
+.bp-divider::after {
+  content: "";
+
+  height: 1px;
+
+  flex: 1;
+
+  background: var(--bp-line-dim);
+}
+
+.bp-divider span {
+  font-family: var(--font-mono);
+
+  font-size: 0.62rem;
+
+  color: var(--bp-line-dim);
+
+  letter-spacing: 0.08em;
+}
+
+
+/* =========================================
+   LOADING STATE
+========================================= */
+
+.bp-loading {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 0.5rem;
+}
+
+.bp-loading::after {
+  content: "";
+
+  width: 8px;
+  height: 8px;
+
+  border: 1px solid var(--bp-accent);
+
+  border-top-color: transparent;
+
+  border-radius: 50%;
+
+  animation: bp-spin 0.7s linear infinite;
+}
+
+
+@keyframes bp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================
+   MOBILE RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+  .bp-canvas {
+    padding: 1.5rem 1rem;
+  }
+
+  .bp-sheet {
+    max-width: 100%;
+  }
+
+  .bp-sheet-title {
+    font-size: 1.15rem;
+
+    margin-left: 1.2rem;
+    margin-right: 1.2rem;
+  }
+
+  .bp-sheet-sub {
+    margin-left: 1.2rem;
+    margin-right: 1.2rem;
+  }
+
+  .bp-form {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+  }
+
+  .bp-sheet-header {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+  }
+
+  .bp-titleblock {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+  }
+
+  .bp-corner {
+    display: none;
+  }
+}
+
+
+/* =========================================
+   VERY SMALL DEVICES
+========================================= */
+
+@media (max-width: 380px) {
+  .bp-canvas {
+    padding: 1rem 0.7rem;
+  }
+
+  .bp-sheet-title {
+    font-size: 1rem;
+  }
+
+  .bp-sheet-sub {
+    font-size: 0.76rem;
+  }
+
+  .bp-link {
+    width: 100%;
+  }
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+
+    transition-duration: 0.01ms !important;
+  }
+}
