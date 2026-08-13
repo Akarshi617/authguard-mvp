@@ -136,10 +136,6 @@ using Next.js App Router, Firebase Auth, and Zustand.
 
 🔗 https://authguard-mvp.vercel.app/
 
----
-
+##Author
 Developed by Akarshi Agrahari
 
----
-
-Developed by Akarshi Agrahari
