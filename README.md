@@ -64,16 +64,7 @@ using Next.js App Router, Firebase Auth, and Zustand.
 - Deploy to Vercel and grab the live link
 - Push to a **public** GitHub repo
 
-## Live Demo
 
-🔗 [Live App]# Sprint 14 — Next.js Authentication Architecture & Route Guards
-
-Track A (Frontend Specialist) walking skeleton: routing + auth state management
-using Next.js App Router, Firebase Auth, and Zustand.
-
-## Repository
-
-📦 [GitHub Repo](https://github.com/your-username/your-repo-name) *(replace with your actual public repo URL)*
 
 ## Explore the App
 
