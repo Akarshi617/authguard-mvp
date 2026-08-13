@@ -64,6 +64,13 @@ body {
   min-height: 100vh;
 }
 
+/* Consistent keyboard-focus ring across every interactive element */
+:focus-visible {
+  outline: 2px solid var(--bp-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 
 /* =========================================
    BLUEPRINT GRID BACKGROUND
@@ -502,6 +509,10 @@ body {
     0 0 14px rgba(255, 159, 74, 0.08);
 }
 
+.bp-input:focus-visible {
+  outline: none;
+}
+
 
 /* Placeholder */
 
@@ -699,29 +710,36 @@ body {
 
 
 /* =========================================
-   GO TO LOGIN / REGISTER BUTTON
+   GO TO LOGIN / REGISTER TAB
+   Styled like a cross-reference tab on a technical
+   drawing ("see sheet AUTH-02") rather than a generic
+   pill button — dashed edge, mono label, sliding arrow.
 ========================================= */
 
 .bp-link {
+  position: relative;
+
   display: inline-flex;
 
   align-items: center;
 
   justify-content: center;
 
-  min-width: 160px;
+  gap: 0.5rem;
 
-  padding: 0.72rem 1.3rem;
+  min-width: 200px;
+
+  padding: 0.7rem 1.3rem;
 
   margin-top: 0.2rem;
 
   font-family: var(--font-mono);
 
-  font-size: 0.72rem;
+  font-size: 0.7rem;
 
   font-weight: 600;
 
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
 
   text-transform: uppercase;
 
@@ -729,56 +747,53 @@ body {
 
   text-decoration: none;
 
-  background:
-    linear-gradient(
-      135deg,
-      rgba(143, 199, 222, 0.05),
-      rgba(7, 29, 48, 0.25)
-    );
+  background: rgba(7, 29, 48, 0.3);
 
-  border: 1px solid var(--bp-line-soft);
+  border: 1px dashed var(--bp-line-dim);
 
-  border-radius: 6px;
+  border-radius: 3px;
 
   cursor: pointer;
 
   transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    border-color 0.25s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
 }
 
+/* Arrow glyph that slides on hover instead of the whole
+   pill jumping — keeps the "reference tab" feel calm */
+.bp-link::after {
+  content: "\2192";
 
-/* Link hover */
+  display: inline-block;
+
+  transition: transform 0.2s ease;
+}
 
 .bp-link:hover {
-  background: var(--bp-accent);
-
-  color: var(--bp-bg-deep);
+  color: var(--bp-accent);
 
   border-color: var(--bp-accent);
 
-  transform: translateY(-2px);
+  border-style: solid;
 
-  box-shadow:
-    0 6px 20px rgba(255, 159, 74, 0.25),
-    0 0 14px rgba(255, 159, 74, 0.12);
+  background: rgba(255, 159, 74, 0.06);
 }
 
-
-/* Link active */
+.bp-link:hover::after {
+  transform: translateX(3px);
+}
 
 .bp-link:active {
-  transform: translateY(0);
-
-  box-shadow: none;
+  background: rgba(255, 159, 74, 0.12);
 }
 
 
 /* =========================================
    SMALL TEXT LINKS
+   Inline variant — lower emphasis than .bp-link,
+   used mid-sentence rather than as a standalone tab.
 ========================================= */
 
 .bp-text-link {
@@ -788,20 +803,19 @@ body {
 
   color: var(--bp-line-soft);
 
-  text-decoration: none;
+  text-decoration: underline;
+
+  text-decoration-style: dotted;
+
+  text-underline-offset: 3px;
 
   letter-spacing: 0.04em;
 
-  transition:
-    color 0.2s ease,
-    text-shadow 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 .bp-text-link:hover {
   color: var(--bp-accent);
-
-  text-shadow:
-    0 0 10px rgba(255, 159, 74, 0.25);
 }
 
 
@@ -1000,6 +1014,11 @@ body {
   .bp-corner {
     display: none;
   }
+
+  .bp-link {
+    width: 100%;
+    min-width: 0;
+  }
 }
 
 
@@ -1018,10 +1037,6 @@ body {
 
   .bp-sheet-sub {
     font-size: 0.76rem;
-  }
-
-  .bp-link {
-    width: 100%;
   }
 }
 
